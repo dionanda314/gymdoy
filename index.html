@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIO'S GYM GUIDEBOOK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0b;
+    --bg-soft: #121214;
+    --card: #17171a;
+    --card-border: #262629;
+    --red: #e0293f;
+    --red-deep: #8c1420;
+    --red-glow: rgba(224,41,63,0.18);
+    --text: #f2f0ec;
+    --text-dim: #a6a3a0;
+    --text-faint: #706d6a;
+    --green: #3ecf7e;
+    --amber: #e0a72e;
+    --divider: #232325;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    padding-bottom:96px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--red);
+    font-weight:700;
+    margin-bottom:6px;
+    display:block;
+  }
+  a{color:var(--red); text-decoration:none;}
+
+  /* Header */
+  header.topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,11,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--divider);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px;
+  }
+  header.topbar .brand{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:22px;
+    letter-spacing:0.05em;
+    color:var(--text);
+  }
+  header.topbar .brand span{color:var(--red);}
+  .menu-btn{
+    background:var(--card); border:1px solid var(--card-border);
+    color:var(--text); width:40px; height:40px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; cursor:pointer;
+  }
+
+  /* Nav Drawer */
+  #navOverlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7);
+    z-index:60; display:none;
+  }
+  #navDrawer{
+    position:fixed; top:0; right:0; height:100%; width:82%; max-width:340px;
+    background:var(--bg-soft); border-left:1px solid var(--divider);
+    z-index:70; transform:translateX(100%);
+    transition:transform 0.28s ease;
+    overflow-y:auto; padding:20px 16px 40px;
+  }
+  #navDrawer.open{transform:translateX(0);}
+  #navOverlay.show{display:block;}
+  #navDrawer .close-btn{
+    float:right; background:none; border:none; color:var(--text-dim); font-size:20px; cursor:pointer;
+  }
+  #navDrawer h4{
+    font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.15em;
+    color:var(--text-faint); text-transform:uppercase; margin:22px 0 8px;
+  }
+  #navDrawer h4:first-of-type{margin-top:6px;}
+  #navDrawer a{
+    display:block; padding:9px 4px; color:var(--text); font-size:15px;
+    border-bottom:1px solid var(--divider);
+  }
+  #navDrawer a:active{color:var(--red);}
+
+  main{max-width:640px; margin:0 auto; padding:0 18px;}
+  section{padding:44px 0; border-bottom:1px solid var(--divider); scroll-margin-top:70px;}
+  section:last-of-type{border-bottom:none;}
+
+  /* Cover */
+  #cover{
+    padding:56px 0 40px; text-align:left; border-bottom:1px solid var(--divider);
+  }
+  #cover .display-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:52px; line-height:0.98;
+    letter-spacing:0.01em;
+    margin:10px 0 4px;
+  }
+  #cover .display-title .accent{color:var(--red);}
+  #cover .subtitle{
+    color:var(--text-dim); font-size:15px; margin-bottom:26px; max-width:420px;
+    font-style:italic;
+  }
+  .stat-strip{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:22px;
+  }
+  .stat-box{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    padding:14px;
+  }
+  .stat-box .num{font-family:'Oswald',sans-serif; font-size:22px; color:var(--red); font-weight:600;}
+  .stat-box .label{font-size:12px; color:var(--text-dim); margin-top:2px;}
+
+  h2.section-title{
+    font-size:26px; margin-bottom:4px; color:var(--text);
+  }
+  .section-sub{color:var(--text-dim); font-size:14px; margin-bottom:22px;}
+
+  p{margin-bottom:14px; color:var(--text);}
+  p.dim{color:var(--text-dim);}
+  ul,ol{padding-left:20px; margin-bottom:14px;}
+  li{margin-bottom:6px;}
+
+  /* Callout */
+  .callout{
+    background:linear-gradient(135deg, var(--red-glow), transparent);
+    border:1px solid var(--red-deep);
+    border-left:4px solid var(--red);
+    border-radius:10px;
+    padding:16px 18px;
+    margin:18px 0;
+    font-size:15px;
+  }
+  .callout.quote{
+    text-align:center; font-family:'Oswald',sans-serif; font-size:18px;
+    text-transform:none; letter-spacing:0; border-style:dashed;
+  }
+  .callout .tag{
+    display:block; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--red); font-weight:700; margin-bottom:6px;
+  }
+
+  /* Card */
+  .card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    padding:18px; margin-bottom:14px;
+  }
+
+  /* Table */
+  table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:14px;}
+  th,td{padding:9px 8px; text-align:left; border-bottom:1px solid var(--divider);}
+  th{color:var(--red); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;}
+  tr:last-child td{border-bottom:none;}
+
+  /* Checklist */
+  .checklist{list-style:none; padding-left:0; margin:14px 0;}
+  .checklist li{
+    display:flex; align-items:flex-start; gap:10px; padding:8px 0;
+    border-bottom:1px solid var(--divider); margin-bottom:0; font-size:14.5px;
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist .box{
+    flex:0 0 18px; width:18px; height:18px; border:2px solid var(--red);
+    border-radius:5px; margin-top:2px;
+  }
+
+  /* Day badge */
+  .daytag{
+    display:inline-block; padding:4px 12px; border-radius:99px;
+    font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:0.06em;
+    text-transform:uppercase; font-weight:600; margin-bottom:10px;
+  }
+  .daytag.push{background:rgba(224,41,63,0.16); color:var(--red); border:1px solid var(--red-deep);}
+  .daytag.pull{background:rgba(62,167,207,0.14); color:#4db8e0; border:1px solid #235a6e;}
+  .daytag.lower{background:rgba(62,207,126,0.14); color:var(--green); border:1px solid #1c5c39;}
+  .daytag.upper{background:rgba(224,167,46,0.15); color:var(--amber); border:1px solid #6e5217;}
+
+  /* Exercise accordion */
+  details.ex{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    margin-bottom:12px; overflow:hidden;
+  }
+  details.ex summary{
+    list-style:none; cursor:pointer; padding:16px 18px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Oswald',sans-serif; font-size:16px; letter-spacing:0.01em;
+  }
+  details.ex summary::-webkit-details-marker{display:none;}
+  details.ex summary .plus{color:var(--red); font-size:20px; font-weight:300; transition:transform 0.2s;}
+  details.ex[open] summary .plus{transform:rotate(45deg);}
+  details.ex summary .sets{font-family:'Inter',sans-serif; font-size:12px; color:var(--text-faint); font-weight:500; text-transform:none;}
+  .ex-body{padding:0 18px 18px;}
+  .ex-body h4{
+    font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--red); margin:14px 0 6px;
+  }
+  .ex-body h4:first-child{margin-top:0;}
+  .cue-box{
+    background:var(--bg); border:1px solid var(--red-deep); border-radius:8px;
+    padding:10px 14px; margin:10px 0; font-family:'Oswald',sans-serif;
+    font-size:15px; color:#fff;
+  }
+  .cue-box .lbl{font-family:'Inter',sans-serif; font-size:10px; color:var(--red); letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:2px; font-weight:700;}
+  .mistakes{color:#e07373;}
+  .mistakes li::marker{content:"✕ "; color:var(--red);}
+
+  /* Alternatif Gerakan (nested accordion) */
+  details.altbox{
+    margin-top:14px; background:transparent; border:1px dashed var(--card-border);
+    border-radius:10px; padding:0;
+  }
+  details.altbox summary{
+    list-style:none; cursor:pointer; padding:10px 12px;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
+    color:var(--red); display:flex; align-items:center; justify-content:space-between;
+  }
+  details.altbox summary::-webkit-details-marker{display:none;}
+  .alt-list{padding:0 12px 12px;}
+  .alt-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:7px 0; border-bottom:1px solid var(--divider); font-size:13px;
+  }
+  .alt-item:last-child{border-bottom:none;}
+  .alt-item .name{color:var(--text);}
+  .badge{
+    flex:0 0 auto; font-size:10.5px; padding:3px 9px; border-radius:99px;
+    white-space:nowrap; font-weight:600;
+  }
+  .badge.match{background:rgba(62,207,126,0.15); color:var(--green); border:1px solid #1c5c39;}
+  .badge.good{background:rgba(224,167,46,0.15); color:var(--amber); border:1px solid #6e5217;}
+  .badge.optional{background:rgba(255,255,255,0.06); color:var(--text-faint); border:1px solid var(--card-border);}
+
+  /* Tappable checklist */
+  .checklist li{cursor:pointer; user-select:none; transition:opacity 0.15s;}
+  .checklist li.checked{opacity:0.5;}
+  .checklist li.checked .box{background:var(--red); position:relative;}
+  .checklist li.checked .box::after{
+    content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:12px; font-weight:700;
+  }
+  .checklist li.checked span:not(.box){text-decoration:line-through;}
+
+  /* Day header row w/ expand-all */
+  .day-header-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;}
+  .expand-all-btn{
+    background:var(--card); border:1px solid var(--card-border); color:var(--text-dim);
+    font-size:12px; padding:6px 12px; border-radius:99px; cursor:pointer;
+    font-family:'Inter',sans-serif; font-weight:600;
+  }
+  .expand-all-btn:active{border-color:var(--red); color:var(--red);}
+
+  /* Icon buttons in header */
+  .header-actions{display:flex; gap:8px;}
+
+  /* Search overlay */
+  #searchOverlay{
+    position:fixed; inset:0; background:rgba(8,8,9,0.98); z-index:80;
+    display:none; flex-direction:column; padding:16px 18px;
+  }
+  #searchOverlay.show{display:flex;}
+  .search-top{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  #searchInput{
+    flex:1; background:var(--card); border:1px solid var(--card-border); color:var(--text);
+    font-size:16px; padding:12px 14px; border-radius:10px; font-family:'Inter',sans-serif;
+  }
+  #searchInput:focus{outline:none; border-color:var(--red);}
+  .search-close{background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer;}
+  #searchResults{overflow-y:auto; flex:1;}
+  .search-result{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:14px 4px; border-bottom:1px solid var(--divider); cursor:pointer;
+  }
+  .search-result .rname{font-family:'Oswald',sans-serif; font-size:16px; color:var(--text);}
+  .search-result .rday{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint);}
+  .search-empty{color:var(--text-faint); font-size:14px; padding:20px 4px; text-align:center;}
+  .highlight-pulse{animation:pulseRed 1.4s ease;}
+  @keyframes pulseRed{
+    0%{box-shadow:0 0 0 0 rgba(224,41,63,0.6);}
+    70%{box-shadow:0 0 0 14px rgba(224,41,63,0);}
+    100%{box-shadow:0 0 0 0 rgba(224,41,63,0);}
+  }
+
+  /* Bottom nav */
+  #bottomNav{
+    position:fixed; bottom:0; left:0; right:0; z-index:45;
+    background:rgba(10,10,11,0.96); backdrop-filter:blur(10px);
+    border-top:1px solid var(--divider);
+    display:flex; padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+  }
+  #bottomNav button{
+    flex:1; background:none; border:none; color:var(--text-faint);
+    font-family:'Inter',sans-serif; font-size:10.5px; font-weight:700; letter-spacing:0.03em;
+    display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 2px; cursor:pointer;
+    text-transform:uppercase;
+  }
+  #bottomNav button .ic{font-size:16px;}
+  #bottomNav button.active{color:var(--red);}
+  .back-top{bottom:74px;}
+
+  /* Today Mode overlay */
+  #todayOverlay{
+    position:fixed; inset:0; background:var(--bg); z-index:90; display:none;
+    flex-direction:column;
+  }
+  #todayOverlay.show{display:flex;}
+  #todayHeader{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px; border-bottom:1px solid var(--divider);
+  }
+  #todayHeader .t{font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.03em;}
+  .day-picker{display:flex; gap:8px; padding:14px 18px; overflow-x:auto;}
+  .day-picker button{
+    flex:0 0 auto; background:var(--card); border:1px solid var(--card-border); color:var(--text-dim);
+    font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.03em; text-transform:uppercase;
+    padding:9px 16px; border-radius:99px; cursor:pointer;
+  }
+  .day-picker button.active{background:var(--red); color:#fff; border-color:var(--red);}
+  #todayBody{flex:1; overflow-y:auto; padding:6px 18px 100px;}
+  .today-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    padding:16px; margin-bottom:12px;
+  }
+  .today-card .tname{font-family:'Oswald',sans-serif; font-size:17px; margin-bottom:4px;}
+  .today-card .ttarget{font-size:12px; color:var(--red); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+  .today-card .tcue{font-family:'Oswald',sans-serif; font-size:14px; color:var(--text-dim); margin-bottom:12px;}
+  .set-row{display:flex; gap:8px;}
+  .set-dot{
+    width:34px; height:34px; border-radius:9px; border:2px solid var(--card-border);
+    display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--text-faint);
+    cursor:pointer; font-family:'Oswald',sans-serif;
+  }
+  .set-dot.done{background:var(--red); border-color:var(--red); color:#fff;}
+  .today-progress{
+    padding:10px 18px; border-top:1px solid var(--divider); font-size:12px; color:var(--text-dim);
+    text-align:center;
+  }
+  .rest-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    padding:24px 20px; text-align:center;
+  }
+  .rest-card .remoji{font-size:38px; margin-bottom:10px;}
+  .rest-card .rtitle{font-family:'Oswald',sans-serif; font-size:19px; color:var(--text); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.02em;}
+  .rest-card .rtext{font-size:14px; color:var(--text-dim); margin-bottom:18px; line-height:1.6;}
+  .rest-list{text-align:left; margin:0 auto 18px; max-width:320px;}
+  .rest-list .alt-item{padding:9px 0;}
+  .rest-hint{
+    font-size:12px; color:var(--text-faint); border-top:1px dashed var(--divider); padding-top:14px; margin-top:4px;
+  }
+
+  /* Plateau flow */
+  .flow-step{
+    background:var(--card); border:1px solid var(--card-border); border-radius:10px;
+    padding:12px 16px; margin-bottom:6px; font-size:14px;
+  }
+  .flow-step .q{color:var(--red); font-weight:700; font-family:'Oswald',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.02em; display:block; margin-bottom:2px;}
+  .flow-arrow{text-align:center; color:var(--text-faint); font-size:13px; margin:2px 0;}
+
+  /* Pain traffic light */
+  .pain-grid{display:grid; grid-template-columns:1fr; gap:8px; margin:14px 0;}
+  .pain-row{
+    display:flex; gap:12px; align-items:flex-start; background:var(--card); border:1px solid var(--card-border);
+    border-radius:10px; padding:12px 14px;
+  }
+  .pain-row .dot{font-size:18px; flex:0 0 auto;}
+  .pain-row .plabel{font-family:'Oswald',sans-serif; font-size:14px; display:block; margin-bottom:2px;}
+  .pain-row.p-green{border-left:3px solid var(--green);}
+  .pain-row.p-amber{border-left:3px solid var(--amber);}
+  .pain-row.p-red{border-left:3px solid var(--red);}
+
+  /* Priority table dots */
+  .pri-a{color:var(--red); font-weight:700;}
+  .pri-b{color:var(--green); font-weight:700;}
+  .pri-m{color:var(--amber); font-weight:700;}
+
+  /* weekly schedule grid */
+  .week-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin:16px 0;}
+  .week-grid .day{
+    background:var(--card); border:1px solid var(--card-border); border-radius:8px;
+    padding:8px 4px; text-align:center; font-size:11px;
+  }
+  .week-grid .day .d{font-family:'Oswald',sans-serif; font-size:13px; color:var(--text);}
+  .week-grid .day.rest{border-color:var(--card-border); opacity:0.6;}
+  .week-grid .day.flex{border-style:dashed;}
+  .week-grid .day .tag{display:block; margin-top:4px; font-size:9px; letter-spacing:0.05em; text-transform:uppercase; color:var(--red);}
+
+  /* Review template */
+  .review-field{margin-bottom:14px;}
+  .review-field label{display:block; font-size:12px; color:var(--text-dim); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.05em;}
+  .review-field .line{
+    border-bottom:1px dashed var(--card-border); min-height:26px;
+  }
+  .scale{display:flex; gap:4px; margin-top:4px;}
+  .scale span{
+    flex:1; text-align:center; border:1px solid var(--card-border); border-radius:5px;
+    font-size:11px; padding:5px 0; color:var(--text-faint);
+  }
+
+  /* cheat sheet table on mobile */
+  .cheat td:first-child{color:var(--text-dim); font-size:13px;}
+  .cheat td:last-child{font-family:'Oswald',sans-serif; color:var(--text);}
+
+  footer{
+    text-align:center; padding:40px 18px 10px; color:var(--text-faint); font-size:12px;
+  }
+
+  .back-top{
+    position:fixed; bottom:18px; right:18px; z-index:40;
+    background:var(--red); color:#fff; width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+    box-shadow:0 4px 14px rgba(224,41,63,0.4); border:none; cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">DIO'S <span>GYM</span> GUIDEBOOK</div>
+  <div class="header-actions">
+    <button class="menu-btn" onclick="toggleSearch(true)" aria-label="Cari exercise">🔎</button>
+    <button class="menu-btn" onclick="toggleNav(true)" aria-label="Buka menu">☰</button>
+  </div>
+</header>
+
+<!-- SEARCH OVERLAY -->
+<div id="searchOverlay">
+  <div class="search-top">
+    <input id="searchInput" type="text" placeholder="Cari exercise... (mis. RDL, lateral raise)" autocomplete="off">
+    <button class="search-close" onclick="toggleSearch(false)">✕</button>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+<div id="navOverlay" onclick="toggleNav(false)"></div>
+<nav id="navDrawer">
+  <button class="close-btn" onclick="toggleNav(false)">✕</button>
+  <h4>Mulai</h4>
+  <a href="#cover" onclick="toggleNav(false)">Cover</a>
+  <a href="#cara-pakai" onclick="toggleNav(false)">Cara Pakai Guidebook</a>
+  <a href="#filosofi" onclick="toggleNav(false)">Filosofi Latihan</a>
+  <a href="#program" onclick="toggleNav(false)">Program Saat Ini</a>
+  <a href="#priority" onclick="toggleNav(false)">Physique Priorities</a>
+  <a href="#fundamental" onclick="toggleNav(false)">Fundamental Execution</a>
+  <a href="#altsystem" onclick="toggleNav(false)">Alternatif Gerakan — Cara Pakai</a>
+  <a href="#warmup" onclick="toggleNav(false)">Warm-Up Protocol</a>
+  <h4>Execution Per Hari</h4>
+  <a href="#push" onclick="toggleNav(false)">🔴 Push Day</a>
+  <a href="#pull" onclick="toggleNav(false)">🔵 Pull Day</a>
+  <a href="#lower" onclick="toggleNav(false)">🟢 Lower Day</a>
+  <a href="#upper" onclick="toggleNav(false)">🟡 Upper Day</a>
+  <h4>Prinsip Latihan</h4>
+  <a href="#rpe" onclick="toggleNav(false)">RPE & Technical Failure</a>
+  <a href="#progression" onclick="toggleNav(false)">Progression</a>
+  <a href="#plateau" onclick="toggleNav(false)">Plateau Troubleshooting</a>
+  <a href="#deload" onclick="toggleNav(false)">Deload Guidance</a>
+  <a href="#tracking" onclick="toggleNav(false)">Tracking (Hevy)</a>
+  <a href="#romtempo" onclick="toggleNav(false)">ROM & Tempo</a>
+  <a href="#mmc" onclick="toggleNav(false)">Mind-Muscle Connection</a>
+  <a href="#rest" onclick="toggleNav(false)">Rest Time</a>
+  <a href="#machine" onclick="toggleNav(false)">Machine & Gym Variation</a>
+  <h4>Recovery & Mindset</h4>
+  <a href="#recovery" onclick="toggleNav(false)">Recovery Management</a>
+  <a href="#safety" onclick="toggleNav(false)">Injury & Safety</a>
+  <a href="#antiego" onclick="toggleNav(false)">Anti-Ego Lifting</a>
+  <a href="#anticompare" onclick="toggleNav(false)">Anti-Comparison</a>
+  <h4>Review & Referensi</h4>
+  <a href="#progressphoto" onclick="toggleNav(false)">Progress Photo Guide</a>
+  <a href="#weekly" onclick="toggleNav(false)">Weekly Review</a>
+  <a href="#mistakes" onclick="toggleNav(false)">Common Mistakes</a>
+  <a href="#glossary" onclick="toggleNav(false)">Glossary</a>
+  <a href="#quickref" onclick="toggleNav(false)">Quick Reference</a>
+  <a href="#closing" onclick="toggleNav(false)">Closing Philosophy</a>
+</nav>
+
+<main>
+
+  <!-- COVER -->
+  <section id="cover">
+    <span class="eyebrow">Personal Training Manual — Dio</span>
+    <div class="display-title">DIO'S<br><span class="accent">GYM</span> GUIDEBOOK</div>
+    <p class="subtitle">Panduan menjalankan program, mengeksekusi latihan, dan berkembang secara bertahap.</p>
+    <div class="stat-strip">
+      <div class="stat-box"><div class="num">24 Sep '25</div><div class="label">Mulai gym</div></div>
+      <div class="stat-box"><div class="num">144+</div><div class="label">Sesi tercatat di Hevy</div></div>
+      <div class="stat-box"><div class="num">~78 kg</div><div class="label">Lean bulk saat ini</div></div>
+      <div class="stat-box"><div class="num">22 → 23</div><div class="label">Usia sekarang</div></div>
+    </div>
+    <button onclick="openToday()" style="margin-top:20px; width:100%; background:var(--red); color:#fff; border:none; border-radius:12px; padding:15px; font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:0.04em; text-transform:uppercase; cursor:pointer;">🚀 Mode Latihan Hari Ini</button>
+    <a href="PASTE_LINK_GDRIVE_DISINI" target="_blank" rel="noopener" style="margin-top:10px; display:block; width:100%; background:transparent; color:var(--text); border:1px solid var(--card-border); border-radius:12px; padding:14px; font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; text-align:center; box-sizing:border-box;">📄 Buka PDF Guidebook (Google Drive)</a>
+  </section>
+
+  <!-- CARA PAKAI -->
+  <section id="cara-pakai">
+    <span class="eyebrow">Panduan Penggunaan</span>
+    <h2 class="section-title">Cara Pakai Guidebook Ini</h2>
+    <p>Buku ini <strong>bukan program baru</strong>. Program kamu sudah bagus — Push, Pull, Lower, Upper sudah cukup. Buku ini adalah manual untuk menjalankan program itu dengan lebih baik.</p>
+    <p class="dim">Cara pakainya simpel:</p>
+    <ul>
+      <li>Sebelum sesi → buka bagian hari itu (Push/Pull/Lower/Upper), lihat cue utama tiap exercise.</li>
+      <li>Saat sesi → jangan buka HP terus. Setup → cue → set → catat → lanjut.</li>
+      <li>Setelah sesi → baru boleh evaluasi lebih dalam. Isi Weekly Review kalau sudah waktunya.</li>
+      <li>Kalau bingung soal RPE, progression, atau ROM → cek bagian Prinsip Latihan.</li>
+      <li>Kalau cuma butuh checklist cepat → langsung ke <a href="#quickref">Quick Reference</a>.</li>
+    </ul>
+    <div class="callout">
+      <span class="tag">Prinsip Dasar</span>
+      Gym = fokus latihan. Evaluasi mendalam = setelah sesi.
+    </div>
+  </section>
+
+  <!-- FILOSOFI -->
+  <section id="filosofi">
+    <span class="eyebrow">Bab 1</span>
+    <h2 class="section-title">Filosofi Latihan Dio</h2>
+    <p>Kamu sudah punya gaya yang jelas: compound sederhana, isolation boleh dieksplorasi. Bukan karena malas coba hal baru, tapi karena kamu tahu tubuh butuh gerakan yang konsisten untuk benar-benar berkembang.</p>
+    <div class="callout quote">"Boring compounds, thoughtful isolation."</div>
+    <p><strong>Compound</strong> — Smith squat, RDL, leg press, lat pulldown, cable row, incline chest press, shoulder press. Dibuat sederhana, stabil, mudah dilacak progressnya. Nggak perlu variasi eksotis.</p>
+    <p><strong>Isolation</strong> — lateral raise, curl, fly, rear delt, leg extension/curl. Boleh dieksplorasi untuk cari variasi yang paling pas secara anatomi dan sensasi — asal ada alasan, bukan sekadar bosan.</p>
+    <p class="dim">Variasi yang lebih sulit bukan berarti otomatis lebih baik. Yang lebih baik adalah variasi yang bisa kamu eksekusi dengan konsisten dan bisa kamu progress.</p>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program">
+    <span class="eyebrow">Bab 2</span>
+    <h2 class="section-title">Program Dio Saat Ini</h2>
+    <p class="section-sub">4-day split. Ini fondasinya — jangan diubah tanpa alasan kuat.</p>
+
+    <div class="card">
+      <span class="daytag push">Push Day</span>
+      <table>
+        <tr><th>Exercise</th><th>Set</th></tr>
+        <tr><td>Incline Chest Press</td><td>3</td></tr>
+        <tr><td>Chest Fly Machine</td><td>3</td></tr>
+        <tr><td>Low Cable Fly Crossover</td><td>3</td></tr>
+        <tr><td>Seated Shoulder Press Machine</td><td>3</td></tr>
+        <tr><td>Dumbbell Lateral Raise</td><td>3</td></tr>
+        <tr><td>Triceps Pushdown</td><td>3</td></tr>
+      </table>
+      <p class="dim" style="margin-bottom:0;">Total: 18 working sets</p>
+    </div>
+
+    <div class="card">
+      <span class="daytag pull">Pull Day</span>
+      <table>
+        <tr><th>Exercise</th><th>Set</th></tr>
+        <tr><td>Lat Pulldown</td><td>3</td></tr>
+        <tr><td>Seated Cable Row — V/Close Grip</td><td>3</td></tr>
+        <tr><td>Single Arm Lat Pulldown</td><td>3</td></tr>
+        <tr><td>Seated Cable Row — Wide Grip</td><td>3</td></tr>
+        <tr><td>Rear Delt Fly Machine</td><td>3</td></tr>
+        <tr><td>Biceps Curl (variasi bebas)</td><td>3</td></tr>
+      </table>
+      <p class="dim" style="margin-bottom:0;">Total: 18 working sets</p>
+    </div>
+
+    <div class="card">
+      <span class="daytag lower">Lower Day</span>
+      <table>
+        <tr><th>Exercise</th><th>Set</th></tr>
+        <tr><td>Smith Squat</td><td>3</td></tr>
+        <tr><td>Romanian Deadlift</td><td>3</td></tr>
+        <tr><td>Leg Press</td><td>3</td></tr>
+        <tr><td>Leg Curl</td><td>3</td></tr>
+        <tr><td>Leg Extension</td><td>3</td></tr>
+        <tr><td>Standing Smith Calf Raise</td><td>3</td></tr>
+        <tr><td>Abs (leg raise / crunch / ab wheel)</td><td>~6</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <span class="daytag upper">Upper Day</span>
+      <p class="dim">Bukan Push/Pull kedua yang identik — ini <strong>specialization / quality volume day</strong> untuk area prioritas.</p>
+      <table>
+        <tr><th>Exercise</th><th>Set</th></tr>
+        <tr><td>Lat Pulldown</td><td>3</td></tr>
+        <tr><td>Seated Cable Row</td><td>3</td></tr>
+        <tr><td>Incline Chest Press Machine</td><td>3</td></tr>
+        <tr><td>Cable Fly Crossover</td><td>3</td></tr>
+        <tr><td>Lateral Raise</td><td>3</td></tr>
+        <tr><td>Triceps Extension</td><td>3</td></tr>
+        <tr><td>Biceps Curl</td><td>3</td></tr>
+      </table>
+      <p class="dim" style="margin-bottom:0;">Total: 21 working sets</p>
+    </div>
+
+    <h3 style="font-size:16px; margin:26px 0 10px;">Jadwal Mingguan</h3>
+    <div class="week-grid">
+      <div class="day"><div class="d">Sen</div><span class="tag" style="color:var(--red);">Push</span></div>
+      <div class="day"><div class="d">Sel</div><span class="tag" style="color:#4db8e0;">Pull</span></div>
+      <div class="day rest"><div class="d">Rab</div><span class="tag">Rest</span></div>
+      <div class="day"><div class="d">Kam</div><span class="tag" style="color:var(--green);">Lower</span></div>
+      <div class="day"><div class="d">Jum</div><span class="tag" style="color:var(--amber);">Upper</span></div>
+      <div class="day flex"><div class="d">Sab</div><span class="tag">Fleksibel</span></div>
+      <div class="day flex"><div class="d">Min</div><span class="tag">Fleksibel</span></div>
+    </div>
+    <p class="dim">Weekend nggak wajib jadi hari latihan. Lari, renang, jalan-jalan, atau full rest — semua valid, tergantung recovery.</p>
+    <p>Program ini sengaja punya <strong>3 upper-body exposure</strong> dan <strong>1 dedicated lower-body day</strong> karena kamu memang memprioritaskan upper body. Trade-off-nya: lower body dapat volume langsung lebih sedikit, tapi itu keputusan sadar, bukan kesalahan program.</p>
+  </section>
+
+  <!-- PRIORITY -->
+  <section id="priority">
+    <span class="eyebrow">Bab 3</span>
+    <h2 class="section-title">Physique Priorities</h2>
+    <p>Evaluasi awal Agustus 2026: physique kamu di kisaran <strong>7,5/10</strong> untuk tahap sekarang. Arms dan shoulders sudah cukup menonjol, back sudah mulai bentuk V-taper. Fase berikutnya: kejar bagian yang belum sepadat itu.</p>
+    <table>
+      <tr><th>Kategori</th><th>Area</th></tr>
+      <tr><td class="pri-a">Priority A</td><td>Lat width, upper chest, side delts, rear delts, upper-back thickness</td></tr>
+      <tr><td class="pri-b">Priority B</td><td>Overall chest, lower body, general shoulder development</td></tr>
+      <tr><td class="pri-m">Maintain</td><td>Biceps, triceps — sudah dominan, progres natural saja</td></tr>
+    </table>
+    <p class="dim">Arms nggak perlu ditambah volumenya cuma karena "masih bisa nambah". Fokus energi ke area Priority A.</p>
+  </section>
+
+  <!-- FUNDAMENTAL -->
+  <section id="fundamental">
+    <span class="eyebrow">Bab 4</span>
+    <h2 class="section-title">Fundamental Execution</h2>
+    <p>Semua panduan exercise di buku ini mengikuti kerangka yang sama. Kalau kamu paham kerangka ini, kamu bisa menerapkannya ke exercise apapun — bukan cuma yang ada di buku.</p>
+    <div class="card">
+      <ul style="margin-bottom:0;">
+        <li><strong>Setup</strong> — posisi tubuh, seat, grip, harus konsisten tiap sesi.</li>
+        <li><strong>ROM (range of motion)</strong> — jarak gerak, dari titik stretch sampai kontraksi. Harus konsisten dari minggu ke minggu.</li>
+        <li><strong>Eccentric</strong> — fase menurunkan/melepas beban. Dikontrol, jangan dijatuhkan gravitasi.</li>
+        <li><strong>Cue</strong> — satu kalimat sederhana buat fokus otot target saat gerak.</li>
+        <li><strong>Apa yang harus terasa</strong> — target muscle mana yang seharusnya bekerja paling keras.</li>
+        <li><strong>Technical failure</strong> — batas set: saat rep berikutnya cuma bisa dengan teknik rusak.</li>
+        <li><strong>Progression</strong> — cara naik level: teknik dulu, lalu reps, baru beban.</li>
+      </ul>
+    </div>
+    <p class="dim">Ingat: sensasi pump/burn membantu, tapi bukan satu-satunya bukti otot bekerja. Patokan utama tetap teknik, ROM, performa, dan progression.</p>
+  </section>
+
+  <!-- ALTERNATIF SYSTEM -->
+  <section id="altsystem">
+    <span class="eyebrow">Bab 5</span>
+    <h2 class="section-title">Alternatif Gerakan — Cara Pakai</h2>
+    <p>Tiap exercise di buku ini punya dropdown <strong>🔄 Alternatif Gerakan</strong>. Ini bukan variasi baru untuk dicoba-coba — ini <strong>Plan B</strong> kalau alat utama nggak tersedia.</p>
+    <div class="callout quote">Alternatif bukan berarti upgrade. Alternatif adalah Plan B ketika Plan A tidak tersedia atau tidak cocok.</div>
+
+    <h3 style="font-size:15px; margin:22px 0 10px;">Arti Label</h3>
+    <div class="card">
+      <div class="alt-item"><span class="name">Contoh gerakan</span><span class="badge match">🟢 Sangat mirip</span></div>
+      <p class="dim" style="font-size:13px; margin:4px 0 12px;">Pola gerak & target muscle hampir identik. Paling aman dijadikan pengganti langsung.</p>
+      <div class="alt-item"><span class="name">Contoh gerakan</span><span class="badge good">🟡 Alternatif bagus</span></div>
+      <p class="dim" style="font-size:13px; margin:4px 0 12px;">Target muscle sama, tapi ada perbedaan leverage/pola gerak. Tetap efektif, cuma jangan bandingkan angka beban dengan gerakan utama.</p>
+      <div class="alt-item"><span class="name">Contoh gerakan</span><span class="badge optional">⚪ Opsional</span></div>
+      <p class="dim" style="font-size:13px; margin:4px 0 0;">Bisa dipakai kalau benar-benar kepepet, tapi karakteristiknya paling beda dari gerakan utama.</p>
+    </div>
+
+    <h3 style="font-size:15px; margin:22px 0 10px;">🟢 Pilih alternatif kalau</h3>
+    <ul>
+      <li>Alat utama sedang dipakai orang lain</li>
+      <li>Gym cabang itu nggak punya alat tersebut</li>
+      <li>Mesin terasa nggak cocok / nggak nyaman secara anatomi</li>
+      <li>Ada keterbatasan ruang atau waktu</li>
+      <li>Butuh variasi sementara karena alasan spesifik (misal recovery sendi)</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:22px 0 10px;">🔴 Jangan ganti hanya karena</h3>
+    <ul class="mistakes">
+      <li>Alternatifnya terlihat lebih "advanced"</li>
+      <li>Orang lain pakai gerakan itu</li>
+      <li>Pengen ngejar angka beban yang lebih besar</li>
+      <li>Bosan, padahal exercise utama masih jalan bagus dan masih progress</li>
+    </ul>
+    <p class="dim">Kalau kamu ganti-ganti gerakan tiap minggu, kamu nggak akan pernah tahu mana yang sebenarnya menghasilkan progression. Pakai gerakan utama sebagai default — buka dropdown alternatif cuma kalau memang perlu.</p>
+  </section>
+
+  <!-- WARM UP -->
+  <section id="warmup">
+    <span class="eyebrow">Bab 6</span>
+    <h2 class="section-title">Warm-Up Protocol</h2>
+    <p>Warm-up bukan buat bikin capek duluan. Tujuannya: siapin gerakan, sendi, koordinasi, dan feel terhadap beban — sebelum working set pertama.</p>
+
+    <h3 style="font-size:15px; margin:20px 0 8px;">General warm-up</h3>
+    <p class="dim">3–5 menit aktivitas ringan bila diperlukan (jalan cepat, sepeda santai, atau gerakan dinamis ringan).</p>
+
+    <h3 style="font-size:15px; margin:20px 0 8px;">Ramp-up set</h3>
+    <p>Khusus untuk <strong>compound pertama</strong> di hari itu (Incline Press, Lat Pulldown, Smith Squat, dst) — jangan langsung working set di beban penuh.</p>
+    <div class="card">
+      <p class="dim" style="margin-bottom:6px;">Set 1 (warm-up): beban ringan × 10–15</p>
+      <p class="dim" style="margin-bottom:6px;">Set 2 (ramp-up): beban sedang × 5–8</p>
+      <p class="dim" style="margin-bottom:0;">Lalu masuk working sets seperti biasa.</p>
+    </div>
+    <p class="dim" style="font-size:13px;">Contoh Incline Chest Press: 30 kg × 12 (warm-up) → 40 kg × 6–8 (ramp-up) → 50 kg × 8–12 (working set).</p>
+    <p class="dim">Exercise isolation setelahnya (fly, lateral raise, curl, dst) biasanya nggak butuh ramp-up terpisah — otot sudah "panas" dari compound sebelumnya.</p>
+  </section>
+
+  <!-- PUSH DAY -->
+  <section id="push">
+    <span class="daytag push">🔴 Push Day</span>
+    <div class="day-header-row">
+      <h2 class="section-title" style="margin-bottom:0;">Chest, Shoulder, Triceps</h2>
+      <button class="expand-all-btn" data-day="push" onclick="expandAllDay('push', this)">Buka semua</button>
+    </div>
+    <p class="section-sub">Tap tiap exercise untuk buka detail execution.</p>
+
+    <details class="ex" id="push-incline-chest-press">
+      <summary>Incline Chest Press <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Upper chest — main lift prioritas kamu.</p>
+        <h4>Setup</h4><p>Punggung menempel penuh ke pad, dada terbuka, scapula stabil (jangan maju-mundur), kaki kokoh, seat diatur supaya handle sejajar dada atas/tengah.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Dorong handle menggunakan dada, bukan sekadar "angkat beban".</div>
+        <h4>Yang dicari</h4><p>Dada bekerja sepanjang ROM. Kalau bahu depan yang dominan, cek sudut incline dan posisi seat — jangan biarkan bahu maju ke depan.</p>
+        <ul class="mistakes"><li>Siku terlalu melebar</li><li>Mengunci siku secara agresif di atas</li><li>Kehilangan kontrol di posisi bawah</li></ul>
+        <h4>Progression</h4><p>Target 8–12 reps. Kalau 3 set sudah 12 reps dengan teknik tetap bagus → pertimbangkan naik beban.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Incline Dumbbell Press</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Incline Barbell Bench Press</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Smith Machine Incline Bench Press</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="push-chest-fly-machine">
+      <summary>Chest Fly Machine <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Chest, fokus adduction (mendekatkan lengan ke tengah dada).</p>
+        <h4>Setup</h4><p>Duduk stabil, handle di posisi nyaman, dada tetap terbuka, bahu jangan maju berlebihan.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Dekatkan lengan dengan chest — bukan "mendorong handle".</div>
+        <h4>Yang paling penting</h4><p>Eccentric. Setelah handle bertemu, kembali perlahan, biarkan chest dapat stretch nyaman (nggak perlu sampai sakit).</p>
+        <ul class="mistakes"><li>Beban terlalu berat</li><li>Bahu maju</li><li>ROM dipotong</li><li>Badan ikut maju-mundur</li></ul>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Cable Chest Fly</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Dumbbell Fly</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Pec Deck</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="push-low-cable-fly-crossover">
+      <summary>Low Cable Fly Crossover <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Chest, adduction dari posisi bawah.</p>
+        <h4>Setup</h4><p>Kaki stabil, sedikit lean bila perlu, mulai dari posisi yang memberi stretch nyaman.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku/lengan bergerak mendekat karena dada berkontraksi — bukan mengangkat cable dengan bahu.</div>
+        <p class="dim">Kalau cable di mesin lain terasa lebih berat untuk beban yang sama, itu normal (leverage & mesin beda). Jangan bandingkan angka mentah antar mesin.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Low Cable Chest Fly</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Incline Dumbbell Fly</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Incline Cable Fly</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="push-seated-shoulder-press">
+      <summary>Seated Shoulder Press Machine <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Anterior/medial delt, triceps membantu.</p>
+        <h4>Setup</h4><p>Punggung menempel, kepala netral, pegangan sejajar nyaman dengan bahu.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku bergerak ke atas — bukan mengangkat badan.</div>
+        <ul class="mistakes"><li>Punggung melengkung berlebihan</li><li>Memantulkan beban dari bawah</li><li>Rep makin pendek tiap kali</li></ul>
+        <p class="dim">Front delt kamu sudah dapat banyak stimulus dari incline press. Nggak perlu dijadikan latihan ego.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Seated Dumbbell Shoulder Press</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Barbell Shoulder Press</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Smith Machine Shoulder Press</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="push-lateral-raise">
+      <summary>Dumbbell Lateral Raise <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>🔥 Side delt — salah satu exercise prioritas physique kamu.</p>
+        <h4>Setup</h4><p>Berdiri stabil, dumbbell di samping, siku sedikit menekuk, bahu rileks.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Bawa siku ke samping — bukan "angkat dumbbell" (supaya trap nggak ambil alih).</div>
+        <h4>ROM</h4><p>Angkat sampai sekitar bahu atau ROM yang nyaman. Nggak perlu setinggi mungkin.</p>
+        <ul class="mistakes"><li>Swing / momentum berlebihan</li><li>Bahu naik, badan miring</li><li>Dumbbell "dilempar"</li></ul>
+        <div class="callout"><span class="tag">Prioritas</span>Kualitas > kilogram. 15 kg dengan 12 reps bersih lebih baik dari 20 kg yang setengah momentum.</div>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Cable Lateral Raise</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Lateral Raise (Machine)</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Leaning Cable Lateral Raise</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="push-triceps-pushdown">
+      <summary>Triceps Pushdown <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Triceps.</p>
+        <h4>Setup</h4><p>Siku dekat badan, bahu stabil, badan nggak perlu membungkuk ekstrem.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Luruskan siku — bukan "turunkan cable dengan seluruh badan".</div>
+        <ul class="mistakes"><li>Siku maju-mundur tiap rep</li><li>Badan ikut menekan</li><li>ROM pendek</li></ul>
+        <p class="dim">Triceps juga sudah kerja di pressing — 3 set direct sudah cukup.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Triceps Rope Pushdown</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Triceps Pushdown (Bar)</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Single Arm Cable Triceps Pushdown</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Overhead Cable Triceps Extension</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+
+  <!-- PULL DAY -->
+  <section id="pull">
+    <span class="daytag pull">🔵 Pull Day</span>
+    <div class="day-header-row">
+      <h2 class="section-title" style="margin-bottom:0;">Lats, Back, Biceps</h2>
+      <button class="expand-all-btn" data-day="pull" onclick="expandAllDay('pull', this)">Buka semua</button>
+    </div>
+
+    <details class="ex" id="pull-lat-pulldown">
+      <summary>Lat Pulldown <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>🔥 Lat width — prioritas utama untuk V-taper.</p>
+        <h4>Setup</h4><p>Dada sedikit terbuka, bahu jangan terus terangkat, grip sesuai nyaman.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku turun ke arah pinggang.</div>
+        <h4>Eccentric</h4><p>Biarkan lat dapat stretch saat kembali — jangan tarik lalu langsung lempar ke atas.</p>
+        <p class="dim">Nggak harus menarik bar sampai menyentuh dada secara ekstrem. Yang penting ROM konsisten + torso stabil + lat bekerja.</p>
+        <div class="callout"><span class="tag">Catatan Grip</span>Thumbless grip membuat lat lebih terasa dan forearm nggak ambil alih. Beban mungkin sedikit turun — boleh dipertahankan selama nyaman, stabil, dan progression masih bisa dilacak.</div>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Assisted Pull-Up</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Pull-Up</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Neutral Grip Lat Pulldown</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Single Arm Lat Pulldown</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="pull-seated-cable-row-vgrip">
+      <summary>Seated Cable Row — V/Close Grip <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Mid-back thickness.</p>
+        <h4>Setup</h4><p>Duduk stabil, dada terbuka, jangan membungkuk berlebihan untuk cari ROM tambahan.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku bergerak ke belakang — bukan "tangan menarik handle ke perut".</div>
+        <p class="dim">Squeeze sebentar di akhir, jangan sampai bahu terdorong jauh ke belakang. Biarkan scapula bergerak natural saat return.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Seated Cable Row (Bar)</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Chest-Supported Row</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Machine Row</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Dumbbell Row</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="pull-single-arm-lat-pulldown">
+      <summary>Single Arm Lat Pulldown <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Lat, unilateral control.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku turun ke samping badan, torso tetap.</div>
+        <p class="dim">Torso jangan ikut berputar mengikuti handle. Tangan yang nggak kerja boleh bantu jaga posisi. Unilateral control lebih penting daripada ego load.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Lat Pulldown</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Assisted Pull-Up</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Single Arm Cable Pulldown</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="pull-seated-cable-row-wide">
+      <summary>Seated Cable Row — Wide Grip <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Upper-back emphasis.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Siku ke belakang dan sedikit melebar.</div>
+        <p class="dim">Beban wajar lebih rendah dari V-grip karena leverage berubah — itu normal, bukan kemunduran.</p>
+        <ul class="mistakes"><li>Bahu naik</li><li>Badan mengayun</li><li>Handle "dilempar" ke dada</li></ul>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Wide Grip Seated Cable Row</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Chest-Supported Row</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Machine Row</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Dumbbell Row</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="pull-rear-delt-fly">
+      <summary>Rear Delt Fly Machine <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>🔥 Rear delt — penting untuk visual shoulder & upper-back.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Buka lengan ke samping menggunakan rear delt — bukan "tarik handle sejauh mungkin".</div>
+        <p class="dim">Isolation ini boleh cukup dekat failure. Technical failure tetap batasnya.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Reverse Dumbbell Fly</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Cable Rear Delt Fly</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Face Pull</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="pull-biceps-curl">
+      <summary>Biceps Curl <span class="sets">3 set · variasi bebas</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Biceps. Boleh pakai incline curl, preacher curl, atau barbell curl sesuai preferensi.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Tekuk siku tanpa swing.</div>
+        <p class="dim">Siku relatif stabil, full ROM nyaman, turun dengan kontrol. Biceps kamu sudah dominan — tujuannya progress kualitas, bukan nambah volume.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Dumbbell Curl</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Barbell Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Preacher Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Seated Incline Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Cable Curl</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+
+  <!-- LOWER DAY -->
+  <section id="lower">
+    <span class="daytag lower">🟢 Lower Day</span>
+    <div class="day-header-row">
+      <h2 class="section-title" style="margin-bottom:0;">Legs + Abs</h2>
+      <button class="expand-all-btn" data-day="lower" onclick="expandAllDay('lower', this)">Buka semua</button>
+    </div>
+
+    <details class="ex" id="lower-smith-squat">
+      <summary>Smith Squat <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Setup</h4><p>Kaki stabil, posisi sesuai anatomi kamu, core brace, punggung terkontrol.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Turun terkontrol, dorong lantai.</div>
+        <div class="callout"><span class="tag">Penting</span>Kalau kaki/pergelangan masih nyeri saat menapak, jangan paksakan squat hanya karena jadwal. Recovery dulu.</div>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Barbell Squat</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Goblet Squat</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Hack Squat</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Leg Press</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-rdl">
+      <summary>Romanian Deadlift <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>🔥 Hamstring + glute — sangat bergantung pada teknik.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Pinggul bergerak ke belakang — bukan "turunkan beban ke lantai".</div>
+        <p class="dim">Nggak perlu sampai menyentuh lantai. Turun sampai hamstring stretch, punggung netral, beban masih terkontrol.</p>
+        <ul class="mistakes"><li>Membungkukkan punggung demi ROM</li><li>Bar menjauh dari kaki</li><li>Jadi seperti deadlift dari lantai</li></ul>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Dumbbell Romanian Deadlift</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Barbell RDL</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Stiff-Leg Deadlift</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">45 Degree Back Extension</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-leg-press">
+      <summary>Leg Press <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Setup</h4><p>Punggung/pinggul menempel, kaki stabil dan posisinya konsisten.</p>
+        <p class="dim">Turunkan sled dengan kontrol, stop sebelum pinggul mulai terangkat atau pelvis kehilangan kontrol. Dorong kembali tanpa mengunci lutut agresif.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Hack Squat</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Smith Machine Squat</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Bulgarian Split Squat</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Goblet Squat</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-leg-curl">
+      <summary>Leg Curl <span class="sets">3 set · seated/lying</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Hamstring via knee flexion. Cocok untuk progress via reps.</p>
+        <div class="cue-box"><span class="lbl">Cue</span>Tarik tumit ke arah bokong — bukan mengangkat pinggul.</div>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Lying Leg Curl</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Standing Leg Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Cable Leg Curl</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-leg-extension">
+      <summary>Leg Extension <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <h4>Target</h4><p>Quads.</p>
+        <p class="dim">Angkat dengan kontrol, kontraksikan quad di atas, turun perlahan. Boleh mendekati failure kalau lutut nyaman & teknik tetap bagus.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Single Leg Extension</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Spanish Squat</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Reverse Nordic Curl</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-calf-raise">
+      <summary>Standing Smith Calf Raise <span class="sets">3 set · plus</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Pola</span>Stretch → dorong → kontraksi → turun terkontrol.</div>
+        <p class="dim">ROM pendek dengan beban berat bukan otomatis lebih baik dari ROM penuh dengan beban lebih ringan.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Leg Press Calf Raise</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Calf Raise (Machine)</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Seated Calf Raise</span><span class="badge optional">⚪ Opsional</span></div>
+          <p class="dim" style="font-size:12.5px; margin:8px 0 0;">Seated calf raise lebih menekankan soleus, bukan gastrocnemius — bukan pengganti 1:1, tapi tetap valid buat variasi calf.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="ex" id="lower-abs">
+      <summary>Abs <span class="sets">~6 set · leg raise / knee raise / ab wheel / crunch</span></summary>
+      <div class="ex-body">
+        <p><strong>Leg/Knee Raise</strong> — fokus kontrol pelvis, bukan ayunan kaki.</p>
+        <p><strong>Crunch</strong> — fleksi tulang belakang terkontrol, jangan tarik leher.</p>
+        <p><strong>Ab Wheel</strong> — jaga core brace, jangan biarkan pinggang "jatuh".</p>
+        <p class="dim" style="margin-bottom:0;">Nggak perlu semua variasi sekaligus — 6 set total sudah cukup sebagai tambahan.</p>
+      
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+          <div class="alt-item"><span class="name">Hanging Knee Raise ↔ Hanging Leg Raise</span><span class="badge match">🟢 Sangat mirip</span></div>
+          <div class="alt-item"><span class="name">Captain's Chair Leg/Knee Raise</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Cable Crunch / Machine Crunch</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          <div class="alt-item"><span class="name">Barbell / Stability Ball Rollout</span><span class="badge optional">⚪ Opsional</span></div>
+          <p class="dim" style="font-size:12.5px; margin:8px 0 0;">Tinggal tukar sesuai variasi yang lagi dipakai — leg raise ↔ knee raise ↔ ab wheel ↔ crunch semuanya saling gantiin tergantung alat yang tersedia.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+
+  <!-- UPPER DAY -->
+  <section id="upper">
+    <span class="daytag upper">🟡 Upper Day</span>
+    <div class="day-header-row">
+      <h2 class="section-title" style="margin-bottom:0;">Upper Body Specialization</h2>
+      <button class="expand-all-btn" data-day="upper" onclick="expandAllDay('upper', this)">Buka semua</button>
+    </div>
+    <div class="callout"><span class="tag">Ingat</span>Ini bukan "Push + Pull tapi semua dihajar". Ini quality volume day untuk area Priority A.</div>
+
+    <details class="ex" id="upper-lat-pulldown">
+      <summary>Lat Pulldown <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Siku turun ke pinggang.</div>
+        <p class="dim">Sama seperti Pull Day — lat width, controlled eccentric.</p>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Assisted Pull-Up</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Pull-Up</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Single Arm Lat Pulldown</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-seated-cable-row">
+      <summary>Seated Cable Row <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Siku ke belakang, torso stabil.</div>
+        <p class="dim">Fokus upper-back thickness.</p>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Machine Row</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Chest-Supported Row</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Dumbbell Row</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-incline-chest-press">
+      <summary>Incline Chest Press Machine <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Dorong dengan dada, controlled stretch.</div>
+        <p class="dim">Fokus upper chest.</p>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Incline Dumbbell Press</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Smith Machine Incline Bench Press</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Incline Barbell Bench Press</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-cable-fly">
+      <summary>Cable Fly Crossover <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Chest adduction — jangan ego loading.</div>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Chest Fly (Machine)</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Pec Deck</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Dumbbell Fly</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-lateral-raise">
+      <summary>Lateral Raise <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Siku memimpin gerakan.</div>
+        <p class="dim">Fokus side delt.</p>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Cable Lateral Raise</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Lateral Raise (Machine)</span><span class="badge good">🟡 Alternatif bagus</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-triceps-extension">
+      <summary>Triceps Extension <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Siku stabil, full ROM nyaman.</div>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Overhead Cable Triceps Extension</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Dumbbell Overhead Triceps Extension</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Skull Crusher</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="ex" id="upper-biceps-curl">
+      <summary>Biceps Curl <span class="sets">3 set</span></summary>
+      <div class="ex-body">
+        <div class="cue-box"><span class="lbl">Cue</span>Jangan swing.</div>
+        <p class="dim">Arms cuma tambahan stimulus di hari ini, bukan prioritas.</p>
+        <details class="altbox">
+          <summary>🔄 Alternatif Gerakan</summary>
+          <div class="alt-list">
+            <div class="alt-item"><span class="name">Preacher Curl</span><span class="badge match">🟢 Sangat mirip</span></div>
+            <div class="alt-item"><span class="name">Seated Incline Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Dumbbell Curl</span><span class="badge good">🟡 Alternatif bagus</span></div>
+            <div class="alt-item"><span class="name">Cable Curl</span><span class="badge optional">⚪ Opsional</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+
+  <!-- RPE -->
+  <section id="rpe">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">RPE & Technical Failure</h2>
+    <p><strong>RPE</strong> (Rate of Perceived Exertion) = seberapa keras satu set terasa, diukur dari reps yang "masih tersisa" kalau kamu terus sampai gagal.</p>
+    <table>
+      <tr><th>RPE</th><th>Artinya</th></tr>
+      <tr><td>7</td><td>Masih cukup banyak reps tersisa</td></tr>
+      <tr><td>8</td><td>Kira-kira 2 reps tersisa</td></tr>
+      <tr><td>9</td><td>Kira-kira 1 rep tersisa</td></tr>
+      <tr><td>10</td><td>Nggak mampu rep berikutnya dengan teknik benar</td></tr>
+    </table>
+    <p><strong>Muscle failure</strong> — otot nggak mampu menyelesaikan repetisi.<br><strong>Technical failure</strong> — rep berikutnya cuma bisa dengan teknik yang sudah rusak.</p>
+    <div class="callout"><span class="tag">Batas Praktis</span>Technical failure adalah batas set kamu — bukan muscle failure absolut.</div>
+    <ul>
+      <li><strong>Compound</strong> — mayoritas set di RPE 7–9. Nggak perlu failure terus.</li>
+      <li><strong>Isolation</strong> — boleh lebih dekat RPE 9–10 selama form tetap baik.</li>
+    </ul>
+    <p class="dim">Failure bukan tujuan tiap set. Set yang bagus adalah set yang efektif, bukan yang paling menyakitkan.</p>
+
+    <h3 style="font-size:15px; margin:22px 0 8px;">RPE ↔ RIR</h3>
+    <p class="dim">Kalau ketemu program orang lain yang pakai istilah <strong>RIR (Reps in Reserve)</strong>, ini konversinya:</p>
+    <table>
+      <tr><th>RPE</th><th>RIR</th></tr>
+      <tr><td>6</td><td>~4 reps tersisa</td></tr>
+      <tr><td>7</td><td>~3 reps tersisa</td></tr>
+      <tr><td>8</td><td>~2 reps tersisa</td></tr>
+      <tr><td>9</td><td>~1 rep tersisa</td></tr>
+      <tr><td>10</td><td>0 / failure</td></tr>
+    </table>
+  </section>
+
+  <!-- PROGRESSION -->
+  <section id="progression">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Progression — Double Progression</h2>
+    <p>Contoh target 8–12 reps di 40 kg:</p>
+    <div class="card">
+      <p class="dim" style="margin-bottom:6px;">Minggu 1: 10 · 10 · 9</p>
+      <p class="dim" style="margin-bottom:6px;">Minggu 2: 11 · 10 · 10</p>
+      <p class="dim" style="margin-bottom:0;">Minggu 3: 12 · 12 · 12 → <strong style="color:var(--red);">naik beban</strong></p>
+    </div>
+    <p>Setelah naik beban, reps boleh turun lagi (misalnya 45 kg × 8,8,8) — lalu bangun ulang ke 12 reps sebelum naik lagi.</p>
+    <div class="callout quote">reps ↑ → kualitas ↑ → beban ↑ → reps turun → bangun lagi</div>
+    <p class="dim">Progress nggak cuma berarti kilogram naik. Bisa juga: reps bertambah, RPE lebih rendah di beban sama, ROM lebih baik, teknik lebih stabil, eccentric lebih terkontrol, atau target muscle lebih tepat kena.</p>
+    <h3 style="font-size:15px; margin:22px 0 10px;">Checklist sebelum naik beban</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Semua reps ROM-nya konsisten?</li>
+      <li><span class="box"></span>Teknik masih stabil?</li>
+      <li><span class="box"></span>Target muscle masih bekerja?</li>
+      <li><span class="box"></span>Nggak pakai momentum berlebihan?</li>
+      <li><span class="box"></span>RPE masih sesuai target?</li>
+      <li><span class="box"></span>Bisa ulangi performa ini?</li>
+      <li><span class="box"></span>Nggak ada nyeri sendi/cedera?</li>
+    </ul>
+    <p class="dim">Mayoritas jawaban "iya" → naikkan sedikit. Kalau nggak → pertahankan beban dan kuasai dulu.</p>
+  </section>
+
+  <!-- PLATEAU -->
+  <section id="plateau">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Plateau Troubleshooting</h2>
+    <p>Stuck di angka yang sama 2–3 minggu? <strong>Jangan langsung ganti exercise.</strong> Cek dulu urutan ini:</p>
+    <div class="flow-step"><span class="q">1. ROM</span>Apakah ROM masih konsisten tiap set, tiap minggu?</div>
+    <div class="flow-arrow">↓ kalau ya, lanjut</div>
+    <div class="flow-step"><span class="q">2. RPE</span>Apakah RPE yang kamu catat benar-benar akurat, bukan asal tebak?</div>
+    <div class="flow-arrow">↓ kalau ya, lanjut</div>
+    <div class="flow-step"><span class="q">3. Teknik</span>Apakah setup, cue, dan eksekusi konsisten dari minggu ke minggu?</div>
+    <div class="flow-arrow">↓ kalau ya, lanjut</div>
+    <div class="flow-step"><span class="q">4. Recovery</span>Apakah tidur, stres, dan recovery kamu belakangan ini cukup?</div>
+    <div class="flow-arrow">↓ kalau ya, lanjut</div>
+    <div class="flow-step"><span class="q">5. Durasi stagnan</span>Apakah exercise ini memang sudah lama banget stagnan (bukan cuma 2 minggu)?</div>
+    <div class="flow-arrow">↓ baru sekarang</div>
+    <div class="callout"><span class="tag">Baru di titik ini</span>Pertimbangkan adjustment kecil — bukan ganti exercise, tapi bisa berupa: kurangi 1 variabel lain yang capek duluan, coba alternatif Plan B sementara, atau evaluasi total volume minggu itu.</div>
+    <p class="dim">Plateau ≠ program jelek. Sering kali penyebabnya di salah satu dari 4 poin pertama, bukan exercise-nya.</p>
+  </section>
+
+  <!-- DELOAD -->
+  <section id="deload">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Deload Guidance</h2>
+    <p>Deload <strong>bukan jadwal wajib</strong> tiap 4–8 minggu. Jangan mikir "sudah 6 minggu, berarti harus deload" kalau performa masih bagus-bagus aja.</p>
+    <p>Pertimbangkan deload kalau muncul beberapa tanda ini barengan:</p>
+    <ul>
+      <li>Performa turun terus-menerus beberapa sesi berturut-turut</li>
+      <li>Fatigue terasa tinggi meski sudah istirahat cukup</li>
+      <li>RPE terasa jauh lebih berat dari biasanya di beban yang sama</li>
+      <li>Motivasi latihan turun secara konsisten, bukan cuma satu hari males</li>
+      <li>Banyak exercise stagnan bersamaan, bukan cuma satu-dua</li>
+      <li>Tubuh terasa nggak pulih seperti biasanya</li>
+    </ul>
+    <div class="callout"><span class="tag">Kalau tanda-tanda ini muncul</span>Pertimbangkan 1 minggu dengan volume/intensitas lebih rendah (kurangi set, turunkan RPE target ke 6–7). Setelah itu lanjut lagi seperti biasa.</div>
+  </section>
+
+  <!-- TRACKING -->
+  <section id="tracking">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Tracking dengan Hevy</h2>
+    <p>Jangan cuma lihat angka <strong>kg</strong>. Lihat kombinasi: <strong>load + reps + RPE + execution + trend</strong>.</p>
+    <div class="card">
+      <p class="dim" style="margin-bottom:6px;">Minggu ini: 40 kg × 10 @8</p>
+      <p class="dim" style="margin-bottom:0;">Minggu depan: 40 kg × 10 @7.5–8 → tetap improvement, walau kg sama.</p>
+    </div>
+    <p class="dim">Jangan nilai program dari satu sesi. Lihat trend beberapa minggu.</p>
+  </section>
+
+  <!-- ROM TEMPO -->
+  <section id="romtempo">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">ROM & Tempo</h2>
+    <p>Tentukan ROM "standar milikmu" per exercise, lalu pertahankan konsisten dari minggu ke minggu. Jangan tiba-tiba memotong ROM cuma supaya bisa nambah reps — itu bikin progression jadi nggak jujur.</p>
+    <p>Untuk tempo, nggak perlu hitung "1...2...3..." tiap rep. Cukup satu aturan:</p>
+    <div class="callout quote">Jangan biarkan gravitasi menyelesaikan eccentric untukmu.</div>
+    <p class="dim">Kalau beban turun dengan suara "DUAK", itu biasanya tanda kamu kehilangan kontrol. Turunkan dengan sengaja.</p>
+  </section>
+
+  <!-- MMC -->
+  <section id="mmc">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Mind-Muscle Connection</h2>
+    <p>Setelah rep terakhir, jangan langsung lempar handle dan berdiri. Tahan sebentar, tanya ke diri sendiri:</p>
+    <div class="callout">"Apakah tadi memang target muscle yang gue cari, atau bagian lain yang duluan capek?"</div>
+    <p class="dim">Contoh: selesai lateral raise → side delt yang gagal, atau grip yang capek? Selesai pulldown → lat yang membatasi, atau forearm? Latihan kecil ini lama-lama bikin kamu makin jago membaca tubuh sendiri.</p>
+  </section>
+
+  <!-- REST -->
+  <section id="rest">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Rest Time</h2>
+    <table>
+      <tr><th>Jenis</th><th>Durasi</th></tr>
+      <tr><td>Compound</td><td>~2–3 menit, atau sesuai kebutuhan performa</td></tr>
+      <tr><td>Isolation</td><td>~1–2 menit, atau sesuai kebutuhan</td></tr>
+    </table>
+    <p class="dim">Kalau masih sangat terengah-engah dan set berikutnya bakal jatuh drastis, istirahat lebih lama. Tujuan rest bukan bikin latihan cepat selesai — tujuannya siap melakukan set berkualitas berikutnya.</p>
+    <div class="callout"><span class="tag">Fokus</span>Gym = fokus latihan. Evaluasi mendalam = setelah sesi. Nggak chat/diskusi panjang di antara set bikin durasi latihan jauh lebih efisien.</div>
+  </section>
+
+  <!-- MACHINE -->
+  <section id="machine">
+    <span class="eyebrow">Prinsip Latihan</span>
+    <h2 class="section-title">Machine & Gym Variation</h2>
+    <p>Kamu sering pindah cabang gym. Walau vendor mesin sama, angka beban bisa terasa beda karena leverage, kondisi mesin, pulley, friction, seat position, dan konfigurasi lainnya.</p>
+    <p class="dim">Jangan bandingkan angka kilogram mentah antar mesin. Kalau mesin beda, patokannya: RPE, reps, execution, target muscle. Angka beban jadi data lokal untuk mesin itu saja.</p>
+  </section>
+
+  <!-- RECOVERY -->
+  <section id="recovery">
+    <span class="eyebrow">Recovery & Mindset</span>
+    <h2 class="section-title">Recovery Management</h2>
+    <p>Jadwal Senin–Jumat (Push/Pull/Rest/Lower/Upper) dipertahankan. Rabu adalah <strong>full rest</strong>. Weekend fleksibel — nggak wajib latihan.</p>
+    <ul>
+      <li>Lari/renang boleh kalau recovery memungkinkan.</li>
+      <li>Aktivitas berat perlu diperhitungkan setelah Lower Day.</li>
+      <li>Recovery adalah bagian dari progression, bukan waktu "kosong".</li>
+    </ul>
+    <p class="dim">Kreatin boleh membantu performa latihan, tapi bukan pengganti recovery.</p>
+  </section>
+
+  <!-- SAFETY -->
+  <section id="safety">
+    <span class="eyebrow">Recovery & Mindset</span>
+    <h2 class="section-title">Injury & Safety Principles</h2>
+    <p>Kamu pernah mengalami kecelakaan yang membuat kaki sempat sakit saat menapak. Prinsip untuk kondisi seperti ini:</p>
+    <ul>
+      <li>Jangan memaksakan latihan hanya karena jadwal.</li>
+      <li>Gunakan rasa sakit sebagai feedback, bukan hal yang diabaikan.</li>
+      <li>Sepatu nyaman bukan berarti cedera sudah sembuh total.</li>
+      <li>Sesuaikan latihan dengan kondisi hari itu.</li>
+    </ul>
+    <table>
+      <tr><th>Normal</th><th>Waspada</th></tr>
+      <tr><td>Pump, burn, muscle fatigue, rep terasa berat</td><td>Nyeri tajam/menusuk, nyeri sendi, rasa nggak stabil, makin parah tiap rep</td></tr>
+    </table>
+
+    <h3 style="font-size:15px; margin:22px 0 10px;">Sistem Pain Traffic-Light</h3>
+    <p class="dim">Daripada nebak-nebak harus ganti exercise apa saat ada rasa nggak nyaman, pakai sistem ini buat tiap gerakan:</p>
+    <div class="pain-grid">
+      <div class="pain-row p-green"><span class="dot">🟢</span><div><span class="plabel">Pain-free</span><span class="dim" style="font-size:13px;">Gerakan nggak menimbulkan nyeri sama sekali → boleh dilanjut normal.</span></div></div>
+      <div class="pain-row p-amber"><span class="dot">🟡</span><div><span class="plabel">Mild discomfort</span><span class="dim" style="font-size:13px;">Ada ketidaknyamanan ringan → kurangi ROM/beban, atau pindah ke variasi/alternatif yang lebih nyaman (lihat dropdown Alternatif Gerakan).</span></div></div>
+      <div class="pain-row p-red"><span class="dot">🔴</span><div><span class="plabel">Pain</span><span class="dim" style="font-size:13px;">Nyeri nyata atau makin parah tiap rep → jangan dipaksakan, stop exercise itu untuk hari ini.</span></div></div>
+    </div>
+    <p class="dim">Buku ini sengaja nggak menentukan "kalau kaki sakit, ganti exercise X ke Y" secara baku — karena penyebab nyeri nggak bisa dinilai cuma dari teks. Pakai sistem 🟢🟡🔴 di atas per sesi, dan kalau nyeri signifikan atau menetap, evaluasi ke tenaga kesehatan.</p>
+
+    <div class="callout"><span class="tag">Penting</span>Kalau ada nyeri mencurigakan: stop, evaluasi, dan konsultasikan ke tenaga profesional bila perlu. Buku ini bukan pengganti diagnosis medis.</div>
+  </section>
+
+  <!-- ANTI EGO -->
+  <section id="antiego">
+    <span class="eyebrow">Recovery & Mindset</span>
+    <h2 class="section-title">Anti-Ego Lifting</h2>
+    <p>Jangan bawa ego dari exercise sebelumnya. Habis kuat 40 kg di lat pulldown, bukan berarti cable row harus juga 40 kg — beda exercise, beda leverage. Bahkan mesin vendor sama pun bisa terasa beda.</p>
+    <div class="callout quote">Angka kilogram adalah alat ukur dalam konteks exercise itu — bukan nilai kemampuan fisikmu secara keseluruhan.</div>
+  </section>
+
+  <!-- ANTI COMPARE -->
+  <section id="anticompare">
+    <span class="eyebrow">Recovery & Mindset</span>
+    <h2 class="section-title">Anti-Comparison / Social Media</h2>
+    <p><strong>Jangan mengganti program hanya karena melihat physique orang lain.</strong></p>
+    <p class="dim">Social media bukan baseline yang adil — genetik beda, lighting beda, pump beda, posing beda, body fat beda, training age beda. Foto "3 bulan gym" nggak selalu berarti cuma 3 bulan pengalaman sebenarnya.</p>
+    <div class="callout quote">Orang lain adalah referensi, bukan target.</div>
+  </section>
+
+  <!-- PROGRESS PHOTO -->
+  <section id="progressphoto">
+    <span class="eyebrow">Review & Referensi</span>
+    <h2 class="section-title">Progress Photo Guide</h2>
+    <p>Foto tiap <strong>2–4 minggu</strong>, bukan tiap hari. Tujuannya bukan cari "gue makin jelek nggak", tapi lihat <strong>trend physique berubah atau nggak</strong> — sesuai priority map di Bab 3.</p>
+    <p class="dim">Supaya perbandingan antar-minggu apple-to-apple, usahakan kondisi sama tiap kali foto:</p>
+    <ul>
+      <li>Waktu yang sama (misal pagi sebelum makan, atau selalu sebelum workout)</li>
+      <li>Pencahayaan yang sama</li>
+      <li>Jarak kamera & angle yang sama</li>
+      <li>Kondisi sebelum/sesudah workout yang konsisten (jangan campur)</li>
+    </ul>
+    <p>Angle standar yang cukup:</p>
+    <div class="card">
+      <p class="dim" style="margin-bottom:6px;">Front relaxed</p>
+      <p class="dim" style="margin-bottom:6px;">Front flexed</p>
+      <p class="dim" style="margin-bottom:6px;">Back relaxed</p>
+      <p class="dim" style="margin-bottom:6px;">Back flexed</p>
+      <p class="dim" style="margin-bottom:0;">Side</p>
+    </div>
+    <p class="dim">Simpan di folder terpisah per bulan biar gampang dibandingin nanti.</p>
+  </section>
+
+  <!-- WEEKLY REVIEW -->
+  <section id="weekly">
+    <span class="eyebrow">Review & Referensi</span>
+    <h2 class="section-title">Weekly Review System</h2>
+    <p class="section-sub">Evaluasi programmu tiap minggu pakai trend, bukan satu sesi. Struktur Push/Pull/Lower/Upper sudah oke — yang perlu ditingkatkan adalah execution, progression, ROM, RPE, consistency, recovery.</p>
+
+    <div class="card">
+      <div class="review-field"><label>Minggu ke</label><div class="line"></div></div>
+      <h4 style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Performance</h4>
+      <div class="review-field"><label>Exercise yang naik</label><div class="line"></div></div>
+      <div class="review-field"><label>Exercise yang stagnan</label><div class="line"></div></div>
+      <div class="review-field"><label>Exercise yang turun</label><div class="line"></div></div>
+      <h4 style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Execution</h4>
+      <div class="review-field"><label>Form terbaik minggu ini</label><div class="line"></div></div>
+      <div class="review-field"><label>Yang perlu diperbaiki</label><div class="line"></div></div>
+      <h4 style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Recovery</h4>
+      <div class="review-field"><label>Energi latihan (1–10)</label><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div></div>
+      <div class="review-field"><label>Recovery (1–10)</label><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div></div>
+      <div class="review-field"><label>Nyeri / ketidaknyamanan</label><div class="line"></div></div>
+      <h4 style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Physique</h4>
+      <div class="review-field"><label>Perubahan yang terlihat</label><div class="line"></div></div>
+      <div class="review-field"><label>Area yang terasa berkembang</label><div class="line"></div></div>
+      <div class="review-field"><label>Area yang perlu perhatian</label><div class="line"></div></div>
+      <h4 style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:8px;">Next Week</h4>
+      <div class="review-field"><label>Satu hal yang akan dilakukan lebih baik minggu depan</label><div class="line"></div></div>
+    </div>
+    <p class="dim" style="font-size:12px;">Tip: screenshot bagian ini tiap minggu buat isi manual di notes app kamu, biar ada arsipnya.</p>
+  </section>
+
+  <!-- MISTAKES -->
+  <section id="mistakes">
+    <span class="eyebrow">Review & Referensi</span>
+    <h2 class="section-title">Common Mistakes yang Dihindari</h2>
+    <ul class="mistakes">
+      <li>Bikin program baru padahal yang sekarang sudah oke</li>
+      <li>Ganti split cuma karena bosan</li>
+      <li>Nambah exercise tanpa alasan jelas</li>
+      <li>Nambah volume arms otomatis (padahal sudah dominan)</li>
+      <li>Pilih variasi "keren"/eksotis cuma karena terlihat lebih advanced</li>
+      <li>Anggap failure tiap set itu wajib</li>
+      <li>Anggap pump satu-satunya bukti otot berkembang</li>
+      <li>Bandingkan angka mesin/gym yang berbeda secara mentah</li>
+      <li>Ganti program cuma karena lihat physique orang lain</li>
+      <li>Main HP/diskusi panjang di antara set</li>
+    </ul>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary">
+    <span class="eyebrow">Review & Referensi</span>
+    <h2 class="section-title">Glossary</h2>
+    <p class="section-sub">Lupa satu istilah 6 bulan lagi? Cek di sini.</p>
+    <table>
+      <tr><th>Istilah</th><th>Artinya</th></tr>
+      <tr><td>RPE</td><td>Rate of Perceived Exertion — seberapa keras satu set terasa (skala 1–10)</td></tr>
+      <tr><td>RIR</td><td>Reps in Reserve — perkiraan berapa rep lagi yang masih sanggup dilakukan</td></tr>
+      <tr><td>ROM</td><td>Range of Motion — jarak gerak dari titik stretch sampai kontraksi</td></tr>
+      <tr><td>Eccentric</td><td>Fase menurunkan/melepas beban (otot memanjang di bawah tekanan)</td></tr>
+      <tr><td>Concentric</td><td>Fase mengangkat/mendorong beban (otot memendek)</td></tr>
+      <tr><td>Compound</td><td>Gerakan yang melibatkan lebih dari satu sendi/kelompok otot besar</td></tr>
+      <tr><td>Isolation</td><td>Gerakan yang fokus ke satu otot/sendi spesifik</td></tr>
+      <tr><td>Progressive overload</td><td>Prinsip menambah tuntutan latihan secara bertahap (reps, beban, kualitas) supaya otot terus beradaptasi</td></tr>
+      <tr><td>Technical failure</td><td>Titik di mana rep berikutnya cuma bisa dilakukan dengan teknik yang sudah rusak</td></tr>
+      <tr><td>Warm-up set</td><td>Set persiapan sebelum working set, beban ringan-sedang</td></tr>
+      <tr><td>Working set</td><td>Set utama yang dihitung sebagai stimulus latihan sesungguhnya</td></tr>
+      <tr><td>Deload</td><td>Periode singkat menurunkan volume/intensitas untuk pemulihan</td></tr>
+    </table>
+  </section>
+
+  <!-- QUICK REFERENCE -->
+  <section id="quickref">
+    <span class="eyebrow">Review & Referensi</span>
+    <h2 class="section-title">Quick Reference</h2>
+    <p class="section-sub">Halaman ini yang paling sering kamu buka pas lagi di gym.</p>
+
+    <h3 style="font-size:15px; margin-bottom:8px;">Sebelum Latihan</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Saya tahu latihan hari ini</li>
+      <li><span class="box"></span>Saya tahu exercise prioritas</li>
+      <li><span class="box"></span>Saya nggak perlu nambah latihan random</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:22px 0 8px;">Setup</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Posisi stabil</li>
+      <li><span class="box"></span>Grip konsisten</li>
+      <li><span class="box"></span>ROM sudah jelas</li>
+      <li><span class="box"></span>Napas/bracing siap</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:22px 0 8px;">Saat Set</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Target muscle jelas</li>
+      <li><span class="box"></span>Eccentric terkendali</li>
+      <li><span class="box"></span>Nggak ego lifting</li>
+      <li><span class="box"></span>Technical failure adalah batas</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:22px 0 8px;">Setelah Set</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Catat reps</li>
+      <li><span class="box"></span>Catat RPE</li>
+      <li><span class="box"></span>Evaluasi kualitas</li>
+      <li><span class="box"></span>Istirahat cukup</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:22px 0 8px;">Setelah Program</h3>
+    <ul class="checklist">
+      <li><span class="box"></span>Lihat trend</li>
+      <li><span class="box"></span>Jangan panik karena satu sesi buruk</li>
+      <li><span class="box"></span>Jangan ganti program tanpa alasan</li>
+      <li><span class="box"></span>Fokus pada progression</li>
+    </ul>
+
+    <h3 style="font-size:15px; margin:26px 0 8px;">Cheat Sheet Cue</h3>
+    <table class="cheat">
+      <tr><td>Incline Press</td><td>Dorong dengan dada</td></tr>
+      <tr><td>Chest Fly</td><td>Dekatkan lengan dengan chest</td></tr>
+      <tr><td>Low Cable Fly</td><td>Bawa lengan dari bawah ke depan</td></tr>
+      <tr><td>Shoulder Press</td><td>Dorong siku ke atas</td></tr>
+      <tr><td>Lateral Raise</td><td>Angkat siku ke samping</td></tr>
+      <tr><td>Triceps Pushdown</td><td>Luruskan siku</td></tr>
+      <tr><td>Lat Pulldown</td><td>Siku turun ke pinggang</td></tr>
+      <tr><td>Cable Row</td><td>Siku ke belakang</td></tr>
+      <tr><td>Single-arm Pulldown</td><td>Siku turun, torso stabil</td></tr>
+      <tr><td>Wide Row</td><td>Siku ke belakang & melebar</td></tr>
+      <tr><td>Rear Delt Fly</td><td>Buka lengan dengan rear delt</td></tr>
+      <tr><td>Curl</td><td>Tekuk siku tanpa swing</td></tr>
+      <tr><td>Smith Squat</td><td>Turun kontrol, dorong lantai</td></tr>
+      <tr><td>RDL</td><td>Pinggul ke belakang</td></tr>
+      <tr><td>Leg Press</td><td>Turun kontrol, pelvis stabil</td></tr>
+      <tr><td>Leg Curl</td><td>Tumit ke arah bokong</td></tr>
+      <tr><td>Leg Extension</td><td>Kontraksikan quad</td></tr>
+      <tr><td>Calf Raise</td><td>Stretch → dorong → squeeze</td></tr>
+    </table>
+    <p class="dim">Satu cue utama per exercise. Jangan coba ingat 15 instruksi sekaligus saat gym.</p>
+  </section>
+
+  <!-- CLOSING -->
+  <section id="closing">
+    <span class="eyebrow">Penutup</span>
+    <h2 class="section-title">Keep the Program. Improve the Execution.</h2>
+    <p>Program nggak perlu makin rumit. Kamu nggak butuh exercise aneh, variasi berlebihan, junk volume, ego lifting, failure tiap set, tambahan volume arms tanpa alasan, atau ganti program tiap kali lihat orang lain.</p>
+    <p>Yang kamu butuh: teknik lebih baik, ROM konsisten, target muscle lebih jelas, progression terukur, recovery cukup, dan konsistensi.</p>
+
+    <div class="callout" style="margin-top:26px;">
+      Kamu mulai tanpa ilmu — dulu bahkan malu nanya penjaga gym. Sudah lewat kecelakaan, home workout selama berbulan-bulan, junk volume, pindah gym, dan proses belajar teknik, RPE, dan progression pelan-pelan. Semua itu bukan hal yang perlu disesali — itu data yang bikin latihan hari ini lebih baik.
+    </div>
+
+    <div class="callout quote" style="margin-top:20px;">"Tugas saya bukan membuat hari kemarin sempurna. Tugas saya adalah membuat hari esok sedikit lebih baik daripada hari ini."</div>
+    <div class="callout quote">"Saya nggak perlu menjadi lebih baik dari orang lain. Saya hanya perlu menjadi versi saya yang lebih baik dari sebelumnya."</div>
+
+    <p style="margin-top:26px; text-align:center; color:var(--text-dim);">Program kamu adalah fondasi.<br>Buku ini adalah manual untuk menjalankannya dengan lebih baik.</p>
+  </section>
+
+</main>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- TODAY MODE OVERLAY -->
+<div id="todayOverlay">
+  <div id="todayHeader">
+    <div>
+      <div class="t">MODE LATIHAN</div>
+      <div id="todaySubtitle" style="font-size:12px; color:var(--text-faint); margin-top:2px;"></div>
+    </div>
+    <button class="search-close" onclick="closeToday()">✕</button>
+  </div>
+  <div class="day-picker" id="dayPicker"></div>
+  <div id="todayBody"></div>
+  <div class="today-progress" id="todayProgress"></div>
+</div>
+
+<!-- STICKY BOTTOM NAV -->
+<nav id="bottomNav">
+  <button data-target="push" onclick="jumpTo('push')"><span class="ic">🔴</span>Push</button>
+  <button data-target="pull" onclick="jumpTo('pull')"><span class="ic">🔵</span>Pull</button>
+  <button data-target="lower" onclick="jumpTo('lower')"><span class="ic">🟢</span>Lower</button>
+  <button data-target="upper" onclick="jumpTo('upper')"><span class="ic">🟡</span>Upper</button>
+  <button onclick="openToday()"><span class="ic">🚀</span>Today</button>
+</nav>
+
+<footer>DIO'S GYM GUIDEBOOK · dibuat berdasarkan program &amp; perjalananmu sendiri</footer>
+
+<script>
+/* ===== Exercise Index (dipakai Search & Today Mode) ===== */
+const EXERCISE_DATA = [
+  {id:'push-incline-chest-press', name:'Incline Chest Press', day:'push', target:'Upper Chest', cue:'Dorong dengan dada', sets:3},
+  {id:'push-chest-fly-machine', name:'Chest Fly Machine', day:'push', target:'Chest', cue:'Dekatkan lengan dengan chest', sets:3},
+  {id:'push-low-cable-fly-crossover', name:'Low Cable Fly Crossover', day:'push', target:'Chest', cue:'Bawa lengan dari bawah ke depan', sets:3},
+  {id:'push-seated-shoulder-press', name:'Seated Shoulder Press', day:'push', target:'Shoulder', cue:'Siku bergerak ke atas', sets:3},
+  {id:'push-lateral-raise', name:'Dumbbell Lateral Raise', day:'push', target:'Side Delt', cue:'Bawa siku ke samping', sets:3},
+  {id:'push-triceps-pushdown', name:'Triceps Pushdown', day:'push', target:'Triceps', cue:'Luruskan siku', sets:3},
+  {id:'pull-lat-pulldown', name:'Lat Pulldown', day:'pull', target:'Lat', cue:'Siku turun ke arah pinggang', sets:3},
+  {id:'pull-seated-cable-row-vgrip', name:'Seated Cable Row (V/Close Grip)', day:'pull', target:'Mid-Back', cue:'Siku bergerak ke belakang', sets:3},
+  {id:'pull-single-arm-lat-pulldown', name:'Single Arm Lat Pulldown', day:'pull', target:'Lat (Unilateral)', cue:'Siku turun, torso tetap', sets:3},
+  {id:'pull-seated-cable-row-wide', name:'Seated Cable Row (Wide Grip)', day:'pull', target:'Upper-Back', cue:'Siku ke belakang & sedikit melebar', sets:3},
+  {id:'pull-rear-delt-fly', name:'Rear Delt Fly Machine', day:'pull', target:'Rear Delt', cue:'Buka lengan dengan rear delt', sets:3},
+  {id:'pull-biceps-curl', name:'Biceps Curl', day:'pull', target:'Biceps', cue:'Tekuk siku tanpa swing', sets:3},
+  {id:'lower-smith-squat', name:'Smith Squat', day:'lower', target:'Quads & Glutes', cue:'Turun terkontrol, dorong lantai', sets:3},
+  {id:'lower-rdl', name:'Romanian Deadlift', day:'lower', target:'Hamstring & Glute', cue:'Pinggul bergerak ke belakang', sets:3},
+  {id:'lower-leg-press', name:'Leg Press', day:'lower', target:'Quads', cue:'Turun kontrol, pelvis stabil', sets:3},
+  {id:'lower-leg-curl', name:'Leg Curl', day:'lower', target:'Hamstring', cue:'Tarik tumit ke arah bokong', sets:3},
+  {id:'lower-leg-extension', name:'Leg Extension', day:'lower', target:'Quads', cue:'Kontraksikan quad', sets:3},
+  {id:'lower-calf-raise', name:'Standing Calf Raise', day:'lower', target:'Calves', cue:'Stretch → dorong → squeeze', sets:3},
+  {id:'lower-abs', name:'Abs', day:'lower', target:'Core', cue:'Kontrol pelvis, bukan momentum', sets:3},
+  {id:'upper-lat-pulldown', name:'Lat Pulldown (Upper)', day:'upper', target:'Lat', cue:'Siku turun ke pinggang', sets:3},
+  {id:'upper-seated-cable-row', name:'Seated Cable Row (Upper)', day:'upper', target:'Upper-Back', cue:'Siku ke belakang, torso stabil', sets:3},
+  {id:'upper-incline-chest-press', name:'Incline Chest Press Machine (Upper)', day:'upper', target:'Upper Chest', cue:'Dorong dengan dada', sets:3},
+  {id:'upper-cable-fly', name:'Cable Fly Crossover (Upper)', day:'upper', target:'Chest', cue:'Chest adduction', sets:3},
+  {id:'upper-lateral-raise', name:'Lateral Raise (Upper)', day:'upper', target:'Side Delt', cue:'Siku memimpin gerakan', sets:3},
+  {id:'upper-triceps-extension', name:'Triceps Extension', day:'upper', target:'Triceps', cue:'Siku stabil, full ROM', sets:3},
+  {id:'upper-biceps-curl', name:'Biceps Curl (Upper)', day:'upper', target:'Biceps', cue:'Jangan swing', sets:3},
+];
+const DAY_LABEL = {push:'🔴 Push', pull:'🔵 Pull', lower:'🟢 Lower', upper:'🟡 Upper'};
+
+/* ===== Nav Drawer ===== */
+function toggleNav(open){
+  document.getElementById('navDrawer').classList.toggle('open', open);
+  document.getElementById('navOverlay').classList.toggle('show', open);
+}
+
+/* ===== Search ===== */
+function toggleSearch(open){
+  const ov = document.getElementById('searchOverlay');
+  ov.classList.toggle('show', open);
+  if(open){
+    document.getElementById('searchInput').value = '';
+    renderSearchResults('');
+    setTimeout(()=>document.getElementById('searchInput').focus(), 50);
+  }
+}
+function renderSearchResults(q){
+  const box = document.getElementById('searchResults');
+  q = q.trim().toLowerCase();
+  const matches = q === '' ? [] : EXERCISE_DATA.filter(e =>
+    e.name.toLowerCase().includes(q) || e.target.toLowerCase().includes(q) || e.cue.toLowerCase().includes(q)
+  );
+  if(q === ''){
+    box.innerHTML = '<div class="search-empty">Ketik nama exercise, misal "RDL" atau "lateral raise"...</div>';
+    return;
+  }
+  if(matches.length === 0){
+    box.innerHTML = '<div class="search-empty">Nggak ketemu. Coba kata kunci lain.</div>';
+    return;
+  }
+  box.innerHTML = matches.map(m =>
+    `<div class="search-result" onclick="goToExercise('${m.id}')">
+       <div><div class="rname">${m.name}</div><div class="dim" style="font-size:12px;">${m.target} · ${m.cue}</div></div>
+       <div class="rday">${DAY_LABEL[m.day]}</div>
+     </div>`
+  ).join('');
+}
+function goToExercise(id){
+  toggleSearch(false);
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.open = true;
+  setTimeout(()=>{
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('highlight-pulse');
+    setTimeout(()=>el.classList.remove('highlight-pulse'), 1500);
+  }, 100);
+}
+
+/* ===== Bottom Nav ===== */
+function jumpTo(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ===== Expand All per Day ===== */
+function expandAllDay(day, btn){
+  const section = document.getElementById(day);
+  const items = section.querySelectorAll('details.ex');
+  const willOpen = btn.textContent.indexOf('Buka') === 0;
+  items.forEach(d => d.open = willOpen);
+  btn.textContent = willOpen ? 'Tutup semua' : 'Buka semua';
+}
+
+/* ===== Tappable Checklist ===== */
+document.addEventListener('click', function(e){
+  const li = e.target.closest('.checklist li');
+  if(li){ li.classList.toggle('checked'); }
+});
+
+/* ===== Scroll Spy (bottom nav + drawer active state) ===== */
+const spySections = ['push','pull','lower','upper'];
+const spyObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      document.querySelectorAll('#bottomNav button[data-target]').forEach(b=>{
+        b.classList.toggle('active', b.dataset.target === entry.target.id);
+      });
+    }
+  });
+}, {rootMargin:'-40% 0px -50% 0px', threshold:0});
+spySections.forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) spyObserver.observe(el);
+});
+
+/* ===== Today Mode ===== */
+let currentTodayDay = 'push';
+const DOW_NAME = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const REST_FLEX_INFO = {
+  rest: {
+    emoji: '😴',
+    title: 'Hari Ini Full Rest',
+    text: 'Rabu itu rest day di jadwalmu. Bukan hari kosong — ini bagian dari progression, bukan waktu yang "hilang".',
+    list: ['Tidur cukup, itu yang paling ngaruh ke recovery', 'Boleh jalan santai kalau pengen gerak, nggak wajib', 'Jangan gym cuma karena "kayaknya nanggung"', 'Kalau badan masih pegal dari Lower Day kemarin, ini waktunya pulih'],
+  },
+  flex: {
+    emoji: '🌤️',
+    title: 'Hari Ini Fleksibel',
+    text: 'Weekend nggak wajib jadi hari latihan. Sesuaikan sama recovery kamu.',
+    list: ['Lari, renang, atau jalan-jalan — boleh kalau badan enak', 'Aktivitas outdoor/rekreasional juga oke', 'Kalau capek dari minggu ini, full rest juga valid', 'Jangan paksain volume tambahan cuma karena "sayang kalau nggak gym"'],
+  },
+};
+function detectTodayDay(){
+  const dow = new Date().getDay(); // 0=Sun...6=Sat
+  const map = {1:'push', 2:'pull', 3:'rest', 4:'lower', 5:'upper', 6:'flex', 0:'flex'};
+  return map[dow] || 'push';
+}
+function openToday(){
+  currentTodayDay = detectTodayDay();
+  document.getElementById('todayOverlay').classList.add('show');
+  const dow = new Date().getDay();
+  document.getElementById('todaySubtitle').textContent = `Hari ini ${DOW_NAME[dow]}`;
+  renderDayPicker();
+  renderTodayBody();
+}
+function closeToday(){
+  document.getElementById('todayOverlay').classList.remove('show');
+}
+function renderDayPicker(){
+  const picker = document.getElementById('dayPicker');
+  picker.innerHTML = Object.keys(DAY_LABEL).map(d =>
+    `<button class="${d===currentTodayDay?'active':''}" onclick="selectTodayDay('${d}')">${DAY_LABEL[d]}</button>`
+  ).join('');
+}
+function selectTodayDay(d){
+  currentTodayDay = d;
+  renderDayPicker();
+  renderTodayBody();
+}
+function renderTodayBody(){
+  const body = document.getElementById('todayBody');
+
+  if(currentTodayDay === 'rest' || currentTodayDay === 'flex'){
+    const info = REST_FLEX_INFO[currentTodayDay];
+    body.innerHTML = `
+      <div class="rest-card">
+        <div class="remoji">${info.emoji}</div>
+        <div class="rtitle">${info.title}</div>
+        <div class="rtext">${info.text}</div>
+        <div class="rest-list">
+          ${info.list.map(t => `<div class="alt-item"><span class="name">${t}</span></div>`).join('')}
+        </div>
+        <div class="rest-hint">Tetap mau latihan / jadwalmu ketuker hari ini? Tinggal pilih Push, Pull, Lower, atau Upper di atas.</div>
+      </div>`;
+    document.getElementById('todayProgress').textContent = '';
+    return;
+  }
+
+  const items = EXERCISE_DATA.filter(e => e.day === currentTodayDay);
+  body.innerHTML = items.map((ex, i) => {
+    const dots = Array.from({length: ex.sets}).map((_, s) =>
+      `<div class="set-dot" data-ex="${ex.id}" data-set="${s}" onclick="toggleSetDot(this)">${s+1}</div>`
+    ).join('');
+    return `<div class="today-card">
+      <div class="tname">${ex.name}</div>
+      <div class="ttarget">🎯 ${ex.target}</div>
+      <div class="tcue">💡 ${ex.cue}</div>
+      <div class="set-row">${dots}</div>
+    </div>`;
+  }).join('');
+  updateTodayProgress();
+}
+function toggleSetDot(el){
+  el.classList.toggle('done');
+  updateTodayProgress();
+}
+function updateTodayProgress(){
+  const dots = document.querySelectorAll('#todayBody .set-dot');
+  const done = document.querySelectorAll('#todayBody .set-dot.done');
+  document.getElementById('todayProgress').textContent =
+    dots.length ? `${done.length} / ${dots.length} set selesai` : '';
+}
+
+document.getElementById('searchInput').addEventListener('input', function(e){
+  renderSearchResults(e.target.value);
+});
+</script>
+</body>
+</html>
